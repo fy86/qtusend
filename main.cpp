@@ -63,7 +63,8 @@ int main(int argc, char *argv[])
                 //
                 buf[0]=0xaa;
                 buf[1]=0x55;
-                for(int i=0;i<4;i++)buf[2+i]=d[4+i];
+                //for(int i=0;i<4;i++)buf[2+i]=d[4+i];
+                for(int i=0;i<4;i++)buf[2+3-i]=d[4+i];
                 for(int i=0;i<8;i++)buf[6+i]=d[11+i];
                 buf[14]=0;
                 buf[15]=0x88;
