@@ -58,8 +58,11 @@ int main(int argc, char *argv[])
                 }
                 qDebug(" line : %s",str.toLatin1().data());
 
-                buf[0]=0x55;
-                buf[1]=0xaa;
+                //buf[0]=0x55;
+                //buf[1]=0xaa;
+                //
+                buf[0]=0xaa;
+                buf[1]=0x55;
                 for(int i=0;i<4;i++)buf[2+i]=d[4+i];
                 for(int i=0;i<8;i++)buf[6+i]=d[11+i];
                 buf[14]=0;
