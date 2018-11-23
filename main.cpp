@@ -76,6 +76,22 @@ int main(int argc, char *argv[])
         //scanfx();
         break;
     default:
+        if(argc<2) break;
+        ///// argc >=5
+        buf[0]=0xaa;buf[1]=0x55;
+        for(int i=0;i<4;i++){
+            //buf[2+i]=QString(argv[i+1]).toUInt(0,16);
+            buf[2+3-i]=QString(argv[i+1]).toUInt(0,16);
+        }
+        for(int i=0;i<8;i++){
+            if((6+i)>argc)break;
+            buf[6+i]=QString(argv[5+i]).toUInt(0,16);
+        }
+        buf[14]=0;
+        buf[15]=0x88;
+        for(int i=0;i<4;i++)qDebug(" id32 : %02x",0x0ff & buf[2+i]);
+        for(int i=0;i<8;i++)qDebug(" data8:%d : %02x",i,0x0ff & buf[6+i]);
+        us.writeDatagram(buf,16,QHostAddress("239.255.43.21"),7755);
         break;
     }
 
