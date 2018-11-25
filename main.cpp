@@ -92,7 +92,8 @@ int main(int argc, char *argv[])
         buf[15]=0x88;
         for(int i=0;i<4;i++)qDebug(" id32 : %02x",0x0ff & buf[2+i]);
         for(int i=0;i<8;i++)qDebug(" data8:%d : %02x",i,0x0ff & buf[6+i]);
-        us.writeDatagram(buf,16,QHostAddress("239.255.43.21"),7755);
+        //us.writeDatagram(buf,16,QHostAddress("239.255.43.21"),7755);
+        us.writeDatagram(buf,16,QHostAddress("127.0.0.1"),7755);
         break;
     }
 
