@@ -4,6 +4,8 @@
 #include <QString>
 #include <QStringList>
 #include <QUdpSocket>
+#include <QDir>
+#include <QProcess>
 
 void scanfx()
 {
@@ -14,6 +16,48 @@ void scanfx()
     fscanf(fp,"%x%x",&i,&j);
     fclose(fp);
     printf("%d %d\n",i,j);
+}
+
+void testdirname()
+{
+    QDir dir("////a.ta/");
+    qDebug("dir dirname:%s   path:%s",dir.dirName().toLatin1().data(),dir.path().toLatin1().data());
+}
+void testProcess()
+{
+    QProcess *p=new QProcess();
+    QStringList sl;
+    //sl<<"/home/c/tmp/test.sh";
+    sl<<"ls";
+    p->start(QString("/bin/sh"),sl);
+    p->waitForFinished();
+
+    QByteArray ba=p->readAllStandardOutput();
+    qDebug(" output : %s",ba.data());
+}
+void testFileRead()
+{
+    QFile f(QString("/home/c/tmp/t.txt"));
+    QByteArray ba;
+    ba.resize(20);
+    if(f.exists()){
+        if(f.open(QIODevice::ReadOnly)){
+            ba=f.readAll();
+            ba.resize(3);
+            qDebug(" file readall ba.len : %d",ba.size());
+            //ba.at(0)='z';
+        }
+
+    }
+    else{
+        qDebug(" file not found");
+    }
+    char b8=0;
+    ba.append(b8);
+    qDebug("   file : %s  len:%d",ba.data(),ba.size());
+    ba.data()[0]='z';
+    qDebug("   file : %s  len:%d",ba.data(),ba.size());
+
 }
 
 int main(int argc, char *argv[])
@@ -27,6 +71,9 @@ int main(int argc, char *argv[])
     QUdpSocket us;
 
     qDebug("hello");
+    testdirname();
+    testProcess();
+    testFileRead();
 
     int start=-1,end=10000;
 
